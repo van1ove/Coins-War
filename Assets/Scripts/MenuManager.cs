@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,13 +6,18 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
-using UnityEngine.Serialization;
 
 public class MenuManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject _createPanel, _joinPanel;
-    [SerializeField] private TMP_InputField _createInput, _joinInput;   
-    
+    [SerializeField] private TMP_InputField _createInput, _joinInput;
+
+    private void Start()
+    {
+        _createPanel.SetActive(false);
+        _joinPanel.SetActive(false);
+    }
+
     public void CreateRoom()
     {
         RoomOptions roomOptions = new RoomOptions();
