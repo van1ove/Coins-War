@@ -9,14 +9,7 @@ using TMPro;
 
 public class MenuManager : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private GameObject _createPanel, _joinPanel;
     [SerializeField] private TMP_InputField _createInput, _joinInput;
-
-    private void Start()
-    {
-        _createPanel.SetActive(false);
-        _joinPanel.SetActive(false);
-    }
 
     public void CreateRoom()
     {
