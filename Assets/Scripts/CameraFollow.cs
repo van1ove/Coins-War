@@ -9,7 +9,7 @@ public class CameraFollow : MonoBehaviour
     private Vector3 _playerVector;
     [SerializeField] private float _speed;
 
-    private void Update()
+    private void FixedUpdate()
     {
         _playerVector = _player.position;
         _playerVector.z = -10;
