@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
 public class PlayerController : MonoBehaviourPun
