@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -7,8 +8,8 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
 public class PlayerController : MonoBehaviourPun
 {
-    [SerializeField] private Joystick _joystick;
-    [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField] private Joystick joystick;
+    [SerializeField] private float moveSpeed = 5f;
     
     private Rigidbody2D _rb;
     private Animator _animator;
@@ -22,17 +23,24 @@ public class PlayerController : MonoBehaviourPun
         
         _animator = GetComponent<Animator>();
         _view = GetComponent<PhotonView>();
+        joystick = GameObject.FindGameObjectWithTag("Joystick").GetComponent<Joystick>();
+
+        if (_view.Owner.IsLocal) Camera.main.GetComponent<CameraFollow>().player = gameObject.transform;
     }
 
     private void FixedUpdate()
     {
-        _x = _joystick.Horizontal;
-        _y = _joystick.Vertical;
-        _z = Mathf.Atan2(_x, _y) * Mathf.Rad2Deg;
-        _rb.velocity = new Vector2(_x * _moveSpeed, _y * _moveSpeed);
-        if (_joystick.Horizontal != 0 || _joystick.Vertical != 0)
+        _x = joystick.Horizontal;
+        _y = joystick.Vertical;
+        
+        if (_view.IsMine)
         {
-            transform.eulerAngles = new Vector3(0f, 0f, -_z);
+            _z = Mathf.Atan2(_x, _y) * Mathf.Rad2Deg;
+            _rb.velocity = new Vector2(_x * moveSpeed, _y * moveSpeed);
+            if (joystick.Horizontal != 0 || joystick.Vertical != 0)
+            {
+                transform.eulerAngles = new Vector3(0f, 0f, -_z);
+            }    
         }
     }
 }
