@@ -1,15 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
 using UnityEngine;
+using TMPro;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
 public class PlayerController : MonoBehaviourPun
 {
+    [Header("UI")]
+    [SerializeField] private GameObject canvas;
+    [SerializeField] private TextMeshProUGUI name;
+    
+    [Header("Movement")]
     [SerializeField] private Joystick joystick;
     [SerializeField] private float moveSpeed = 5f;
-    
+
+        
     private Rigidbody2D _rb;
     private Animator _animator;
     private PhotonView _view;
@@ -22,10 +29,17 @@ public class PlayerController : MonoBehaviourPun
         _rb.freezeRotation = true;
         
         _animator = GetComponent<Animator>();
+        
         _view = GetComponent<PhotonView>();
-        joystick = GameObject.FindGameObjectWithTag("Joystick").GetComponent<Joystick>();
-
+        name.text = _view.Owner.NickName;
         if (_view.Owner.IsLocal) Camera.main.GetComponent<CameraFollow>().player = gameObject.transform;
+        
+        joystick = GameObject.FindGameObjectWithTag("Joystick").GetComponent<Joystick>();
+    }
+
+    private void Update()
+    {
+        canvas.transform.eulerAngles = new Vector3(0f, 0f, -transform.rotation.z);
     }
 
     private void FixedUpdate()
