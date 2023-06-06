@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviourPun
     private PhotonView _view;
 
     private float _x, _y, _z;
+    private bool _isRunning = false;
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -37,10 +38,14 @@ public class PlayerController : MonoBehaviourPun
         {
             _z = Mathf.Atan2(_x, _y) * Mathf.Rad2Deg;
             _rb.velocity = new Vector2(_x * moveSpeed, _y * moveSpeed);
-            if (joystick.Horizontal != 0 || joystick.Vertical != 0)
+
+            _isRunning = (_rb.velocity != Vector2.zero); 
+            _animator.SetBool("IsRunning", _isRunning);
+            
+            if (_x != 0 || _y != 0)
             {
                 transform.eulerAngles = new Vector3(0f, 0f, -_z);
-            }    
+            }
         }
     }
 }
