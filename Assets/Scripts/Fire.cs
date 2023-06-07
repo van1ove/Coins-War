@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Photon.Pun;
 public class Fire : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D bulletPrefab;
-    private Transform _positionToSpawn;
     [SerializeField] private float delay = 0.5f, bulletForce = 10f;
     
+    private Transform _positionToSpawn;
     private float _timer;
     private bool _isDown;
     void Start()
@@ -20,18 +19,17 @@ public class Fire : MonoBehaviour
     void Update()
     {
         _timer += Time.deltaTime;
-        if(_isDown && _timer > delay)
-        {
-            Shoot();
-            _timer = 0f;
-        }
     }
 
     public void Shoot()
     {
-        Rigidbody2D bullet = Instantiate(bulletPrefab, _positionToSpawn.position, _positionToSpawn.rotation);
-        //Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        bullet.AddForce(_positionToSpawn.up * bulletForce, ForceMode2D.Impulse);
+        if(_isDown && _timer > delay)
+        {
+            GameObject bullet = PhotonNetwork.Instantiate("Bullet", _positionToSpawn.position, _positionToSpawn.rotation);
+            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+            rb.AddForce(_positionToSpawn.up * bulletForce, ForceMode2D.Impulse);
+            _timer = 0f;
+        }
     }
 
     public void FireButtonDown()

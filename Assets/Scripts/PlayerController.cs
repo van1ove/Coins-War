@@ -24,24 +24,29 @@ public class PlayerController : MonoBehaviourPun
 
     private Rigidbody2D _rb;
     private Animator _animator;
-    private PhotonView _view;
     
+    private PhotonView _view;
     
     private float _x, _y, _z;
     private bool _isRunning = false;
+    
+    private Fire fire;
+
+    private void Awake()
+    {
+        _view = GetComponent<PhotonView>();
+        name.text = _view.Owner.NickName;
+        if (_view.Owner.IsLocal) Camera.main.GetComponent<CameraFollow>().player = gameObject.transform;
+    }
+
     private void Start()
     {
-        // int a = gameObject.GetComponentsInChildren<Transform>().Length;
-        // Debug.Log(gameObject.GetComponentsInChildren<Transform>()[a - 1].name);
-        
+        fire = FindObjectOfType<Fire>();
+
         _rb = GetComponent<Rigidbody2D>();
         _rb.freezeRotation = true;
         
         _animator = GetComponent<Animator>();
-        
-        _view = GetComponent<PhotonView>();
-        name.text = _view.Owner.NickName;
-        if (_view.Owner.IsLocal) Camera.main.GetComponent<CameraFollow>().player = gameObject.transform;
         
         joystick = GameObject.FindGameObjectWithTag("Joystick").GetComponent<Joystick>();
     }
@@ -49,6 +54,10 @@ public class PlayerController : MonoBehaviourPun
     private void Update()
     {
         canvas.transform.eulerAngles = new Vector3(0f, 0f, -transform.rotation.z);
+        if (_view.IsMine)
+        {
+            fire.Shoot();
+        }
     }
 
     private void FixedUpdate()
@@ -58,7 +67,6 @@ public class PlayerController : MonoBehaviourPun
         
         if (_view.IsMine)
         {
-            _z = Mathf.Atan2(_x, _y) * Mathf.Rad2Deg;
             _rb.velocity = new Vector2(_x * moveSpeed, _y * moveSpeed);
 
             _isRunning = (_rb.velocity != Vector2.zero); 
@@ -66,6 +74,7 @@ public class PlayerController : MonoBehaviourPun
             
             if (_x != 0 || _y != 0)
             {
+                _z = Mathf.Atan2(_x, _y) * Mathf.Rad2Deg;
                 transform.eulerAngles = new Vector3(0f, 0f, -_z);
             }
         }

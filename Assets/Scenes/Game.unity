@@ -405,7 +405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: -5384577462820461042, guid: 338686af882f5a94487e48d7ff88a056, type: 3}
   delay: 0.5
-  bulletForce: 9
+  bulletForce: 10
 --- !u!114 &273051663
 MonoBehaviour:
   m_ObjectHideFlags: 0

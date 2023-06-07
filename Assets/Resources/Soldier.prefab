@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 516120405}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bullet Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 2738189978735670459}
   - component: {fileID: 2708079925981539106}
   - component: {fileID: 2112996588417730318}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 2595715682861682107}
   - component: {fileID: 5955954974125383986}
   - component: {fileID: 4095129239177272492}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,10 +280,11 @@ GameObject:
   - component: {fileID: 6831158209419162152}
   - component: {fileID: 6831158209419162153}
   - component: {fileID: 6831158209419162154}
-  - component: {fileID: 6831158209419162159}
   - component: {fileID: 6831158209419162155}
+  - component: {fileID: 6831158209419162159}
   - component: {fileID: -3538783376994322183}
-  m_Layer: 0
+  - component: {fileID: 851816869487832057}
+  m_Layer: 3
   m_Name: Soldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -416,6 +417,23 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6831158209419162155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6831158209419162150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eca6a92d32f9649805d4f5ed592159, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpawn: {fileID: 516120405}
+  canvas: {fileID: 2779880644836634571}
+  name: {fileID: 4095129239177272492}
+  joystick: {fileID: 0}
+  moveSpeed: 5
 --- !u!114 &6831158209419162159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,26 +454,10 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: -3538783376994322183}
+  - {fileID: 851816869487832057}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &6831158209419162155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6831158209419162150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24eca6a92d32f9649805d4f5ed592159, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletSpawn: {fileID: 516120405}
-  canvas: {fileID: 2779880644836634571}
-  name: {fileID: 4095129239177272492}
-  joystick: {fileID: 0}
-  moveSpeed: 5
 --- !u!114 &-3538783376994322183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,3 +491,24 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &851816869487832057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6831158209419162150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 1
+    Name: IsRunning
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
