@@ -8,6 +8,12 @@ using TMPro;
 [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
 public class PlayerController : MonoBehaviourPun
 {
+    [SerializeField] private Transform bulletSpawn;
+    public Transform BulletSpawn
+    {
+        get { return bulletSpawn; }
+    }
+    
     [Header("UI")]
     [SerializeField] private GameObject canvas;
     [SerializeField] private TextMeshProUGUI name;
@@ -19,11 +25,15 @@ public class PlayerController : MonoBehaviourPun
     private Rigidbody2D _rb;
     private Animator _animator;
     private PhotonView _view;
-
+    
+    
     private float _x, _y, _z;
     private bool _isRunning = false;
     private void Start()
     {
+        // int a = gameObject.GetComponentsInChildren<Transform>().Length;
+        // Debug.Log(gameObject.GetComponentsInChildren<Transform>()[a - 1].name);
+        
         _rb = GetComponent<Rigidbody2D>();
         _rb.freezeRotation = true;
         
