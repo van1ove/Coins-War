@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviourPun
     [SerializeField] private Joystick joystick;
     [SerializeField] private float moveSpeed = 5f;
 
-        
     private Rigidbody2D _rb;
     private Animator _animator;
     private PhotonView _view;
