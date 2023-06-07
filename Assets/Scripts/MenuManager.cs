@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+using UnityEngine.Serialization;
 
 public class MenuManager : MonoBehaviourPunCallbacks
 {
@@ -13,18 +14,25 @@ public class MenuManager : MonoBehaviourPunCallbacks
     [SerializeField] private TMP_InputField joinInput;
     [SerializeField] private TMP_InputField nameInput;
 
-    [SerializeField] private GameObject errorPanel;
+    [SerializeField] private GameObject errorNamePanel, errorRoomPanel;
 
     private void Start()
     {
-        errorPanel.SetActive(false);
+        errorNamePanel.SetActive(false);
+        errorRoomPanel.SetActive(false);
     }
 
     public void CreateRoom()
     {
-        if (nameInput.text.Length < 3)
+        if (nameInput.text.Length < 3 )
         {
-            errorPanel.SetActive(true);
+            errorNamePanel.SetActive(true);
+            return;
+        }
+        
+        if (createInput.text.Length < 3)
+        {
+            errorRoomPanel.SetActive(true);
             return;
         }
 
@@ -38,7 +46,13 @@ public class MenuManager : MonoBehaviourPunCallbacks
     {
         if (nameInput.text.Length < 3)
         {
-            errorPanel.SetActive(true); 
+            errorNamePanel.SetActive(true); 
+            return;
+        }
+        
+        if (joinInput.text.Length < 3)
+        {
+            errorRoomPanel.SetActive(true);
             return;
         }
         if (PhotonNetwork.PlayerList.Length == 4) return;
