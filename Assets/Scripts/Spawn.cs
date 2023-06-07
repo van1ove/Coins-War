@@ -3,13 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Spawn : MonoBehaviour
 {
     public GameObject player;
-    public GameObject position;
+    [SerializeField] private float minX, minY, maxX, maxY;
     private void Start()
     {
-        PhotonNetwork.Instantiate(player.name, position.transform.position, Quaternion.identity);
+        Vector2 pos = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
+        
+        PhotonNetwork.Instantiate(player.name, pos, Quaternion.identity);
     }
 }

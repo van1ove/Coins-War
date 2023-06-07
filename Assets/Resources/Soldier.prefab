@@ -388,7 +388,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 200
+  m_Mass: 10000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -432,7 +432,6 @@ MonoBehaviour:
   bulletSpawn: {fileID: 516120405}
   canvas: {fileID: 2779880644836634571}
   name: {fileID: 4095129239177272492}
-  joystick: {fileID: 0}
   moveSpeed: 5
 --- !u!114 &6831158209419162159
 MonoBehaviour:

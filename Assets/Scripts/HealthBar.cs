@@ -5,15 +5,14 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     private Image _healthImage;
-    private float _maxHealth = 100f;
-    public float _hp = 100f;
+    // private readonly float maxHealth = 100f;
+    // public float Hp { get; set; }
     void Start()
     {
         _healthImage = GetComponent<Image>();
-        _hp = 100f;
     }
-    void Update()
+    public void ChangeHealth(float value)
     {
-        _healthImage.fillAmount = _hp / _maxHealth;
+        _healthImage.fillAmount = value;
     }
 }

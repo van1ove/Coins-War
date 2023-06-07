@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
 public class PlayerController : MonoBehaviourPun
@@ -19,16 +20,20 @@ public class PlayerController : MonoBehaviourPun
     [SerializeField] private TextMeshProUGUI name;
     
     [Header("Movement")]
-    [SerializeField] private Joystick joystick;
+    private Joystick joystick;
     [SerializeField] private float moveSpeed = 5f;
 
     private Rigidbody2D _rb;
     private Animator _animator;
     
     private PhotonView _view;
-    
+    public PhotonView View { get; }
     private float _x, _y, _z;
     private bool _isRunning = false;
+    
+    private Image _healthBar;
+    private readonly float maxHealth = 100f;
+    private float _health = 100f;
     
     private Fire fire;
 
@@ -49,6 +54,7 @@ public class PlayerController : MonoBehaviourPun
         _animator = GetComponent<Animator>();
         
         joystick = GameObject.FindGameObjectWithTag("Joystick").GetComponent<Joystick>();
+        _healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Image>();
     }
 
     private void Update()
@@ -77,6 +83,15 @@ public class PlayerController : MonoBehaviourPun
                 _z = Mathf.Atan2(_x, _y) * Mathf.Rad2Deg;
                 transform.eulerAngles = new Vector3(0f, 0f, -_z);
             }
+        }
+    }
+    
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.layer == 7 && _view.IsMine)
+        {
+            _health -= 10f;
+            _healthBar.fillAmount = _health / maxHealth;
         }
     }
 }

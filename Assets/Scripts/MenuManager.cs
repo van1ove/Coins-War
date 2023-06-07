@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
-using UnityEngine.Serialization;
 
 public class MenuManager : MonoBehaviourPunCallbacks
 {
@@ -42,6 +41,8 @@ public class MenuManager : MonoBehaviourPunCallbacks
             errorPanel.SetActive(true); 
             return;
         }
+        if (PhotonNetwork.PlayerList.Length == 4) return;
+        
         PhotonNetwork.NickName = nameInput.text;
         PhotonNetwork.JoinRoom(joinInput.text);
     }
