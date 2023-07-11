@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
@@ -88,10 +89,24 @@ public class PlayerController : MonoBehaviourPun
     
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.layer == 7 && _view.IsMine)
+
+    }
+
+    private void GetDamage()
+    {
+        _health -= 10f;
+        _healthBar.fillAmount = _health / maxHealth;
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        Bullet bullet = col.gameObject.GetComponent<Bullet>();
+        if (bullet == null) return;
+        
+        if (_view.IsMine)
         {
-            _health -= 10f;
-            _healthBar.fillAmount = _health / maxHealth;
+            Debug.Log("damaged");
+            GetDamage();
         }
     }
 }

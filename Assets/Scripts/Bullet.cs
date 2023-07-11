@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
             PhotonNetwork.Destroy(bullet);
         }
     }
-
+    
     private void OnCollisionEnter2D(Collision2D other) 
     {
         if (other.gameObject.layer is 6 or 3)
